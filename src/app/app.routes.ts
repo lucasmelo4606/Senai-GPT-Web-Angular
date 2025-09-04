@@ -5,6 +5,10 @@ import { LoginScreenComponent } from './user-module/login-screen/login-screen.co
 export const routes: Routes = [
    {path:"login",
     loadComponent: () => LoginScreenComponent
+   },
+   {
+      path:"",
+      loadComponent:() =>LoginScreenComponent
    }
     
 ];
