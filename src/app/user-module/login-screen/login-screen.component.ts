@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ɵɵinvalidFactory } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -25,12 +25,48 @@ export class LoginScreenComponent {
 
   }
 
-  onLoginClick() {
+  async  onLoginClick() {
 
-    alert("Botão de login clicado.")
+    if (this.loginForm.invalid) {
+      alert("preencha os campos ")
+      // evita envio se o formulário estiver inválido
+      return;
+    }
+
+    const { email, password } = this.loginForm.value;
+
+    ("Botão de login clicado.")
     console.log("Email", this.loginForm.value.email);
     console.log("Password", this.loginForm.value.password);
+
+    let response = await fetch("https://senai-gpt-api.azurewebsites.net/login", {
+      method:"POST",
+      headers:{
+
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: this.loginForm.value.email,
+        password: this.loginForm.value.password
+      })
+    });
+
+    console.log("STATUS CODE", response.status)
+
+
+    
+    if (response.status >= 200 && response.status <=299){
+      alert("deu certo")
+      
+    }else{
+      alert("deu errado")
+    }
+
+
+
   }
+
+
 }
 
 
