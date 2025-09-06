@@ -11,7 +11,12 @@ export class LoginScreenComponent {
 
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder){
+  emailErrorMessage: string;
+  passordErrorMessage: string;
+  statusCorreto: string;
+  credencialError: string;
+
+  constructor(private fb: FormBuilder) {
     //sera executado quando a tela iniciar
 
     //iniciar o frmulário
@@ -19,17 +24,39 @@ export class LoginScreenComponent {
     //criar o campo obrigatório de password
     this.loginForm = this.fb.group({
       email: ["", [Validators.required]],
-      password: ["", [ Validators.required]]
+      password: ["", [Validators.required]]
     });
+
+    this.emailErrorMessage = "";
+    this.passordErrorMessage = "";
+    this.statusCorreto = "";
+    this.credencialError = "";
 
 
   }
 
-  async  onLoginClick() {
+  async onLoginClick() {
+
+    this.emailErrorMessage = "";
+    this.passordErrorMessage = "";
+    this.statusCorreto = "";
+    this.credencialError = "";
 
     if (this.loginForm.invalid) {
-      alert("preencha os campos ")
-      // evita envio se o formulário estiver inválido
+
+      if (this.loginForm.value.email == "") {
+
+        this.emailErrorMessage = " e-mail obrigatório";
+
+      } 
+      
+      if (this.loginForm.value.password == "") {
+
+        this.passordErrorMessage = " senha obrigatória";
+
+      }
+     
+
       return;
     }
 
@@ -40,8 +67,8 @@ export class LoginScreenComponent {
     console.log("Password", this.loginForm.value.password);
 
     let response = await fetch("https://senai-gpt-api.azurewebsites.net/login", {
-      method:"POST",
-      headers:{
+      method: "POST",
+      headers: {
 
         "Content-Type": "application/json"
       },
@@ -49,17 +76,19 @@ export class LoginScreenComponent {
         email: this.loginForm.value.email,
         password: this.loginForm.value.password
       })
+
     });
 
     console.log("STATUS CODE", response.status)
 
 
-    
-    if (response.status >= 200 && response.status <=299){
-      alert("deu certo")
-      
-    }else{
-      alert("deu errado")
+
+    if (response.status >= 200 && response.status <= 299) {
+      this.statusCorreto = " perfeito"
+
+    } else {
+
+      this.credencialError = " senha ou e-mail incorreto"
     }
 
 

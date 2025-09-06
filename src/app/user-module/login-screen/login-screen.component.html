@@ -12,8 +12,16 @@
         </div>
         <div class="login">
             <input type="email" placeholder="insira o e-mail" required class="inpt" formControlName="email">
+            <span class="erro-message">{{emailErrorMessage}} </span>
+
             <input type="password" placeholder="insira a senha required" class="inpt" formControlName="password">
+            <span class="erro-message">{{passordErrorMessage}} </span>
             <button (click)="onLoginClick()">Entrar</button>
+
+
+            <span class="status-certo">{{statusCorreto}} </span>
+
+            <span class="credencialErro"> {{credencialError}}</span>
         </div>
        
     </div>
