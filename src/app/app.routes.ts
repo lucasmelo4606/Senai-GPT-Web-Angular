@@ -12,7 +12,7 @@ export const routes: Routes = [
       loadComponent:() =>LoginScreenComponent
    },
    {
-      path:"chat-screen",
+      path:"chat",
       loadComponent: () => ChatScreenComponent
    }
     

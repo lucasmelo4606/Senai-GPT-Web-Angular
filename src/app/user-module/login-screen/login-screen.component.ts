@@ -1,4 +1,4 @@
-import { Component, ɵɵinvalidFactory } from '@angular/core';
+import { ChangeDetectorRef, Component, ɵɵinvalidFactory } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -16,7 +16,7 @@ export class LoginScreenComponent {
   statusCorreto: string;
   credencialError: string;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private cd: ChangeDetectorRef) {
     //sera executado quando a tela iniciar
 
     //iniciar o frmulário
@@ -55,8 +55,10 @@ export class LoginScreenComponent {
         this.passordErrorMessage = " senha obrigatória";
 
       }
-     
 
+
+     
+      this.cd.detectChanges(); //forçar uma atualização da tela.
       return;
     }
 
@@ -84,7 +86,16 @@ export class LoginScreenComponent {
 
 
     if (response.status >= 200 && response.status <= 299) {
-      this.statusCorreto = " perfeito"
+      this.statusCorreto = " login realizado com sucesso"
+
+      let json =await response.json();
+
+      console.log( "JSON", json)
+      let meuToken = json.accessToken;
+      let userId = json.user.id;
+
+      localStorage.setItem("meuToken", meuToken)
+      localStorage.setItem("meuId", userId)
 
     } else {
 
