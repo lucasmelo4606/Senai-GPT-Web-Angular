@@ -97,6 +97,8 @@ export class LoginScreenComponent {
       localStorage.setItem("meuToken", meuToken)
       localStorage.setItem("meuId", userId)
 
+      window.location.href = "chat";
+
     } else {
 
       this.credencialError = " senha ou e-mail incorreto"
