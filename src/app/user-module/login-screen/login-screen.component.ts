@@ -97,7 +97,7 @@ export class LoginScreenComponent {
       localStorage.setItem("meuToken", meuToken)
       localStorage.setItem("meuId", userId)
 
-      window.location.href = "chat";
+      window.location.href = "chat"; // quando terminar a validação manda pro chat
 
     } else {
 
