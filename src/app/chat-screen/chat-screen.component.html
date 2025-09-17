@@ -8,8 +8,9 @@
                     style="background-color: black; color: white; width: 190px; height: 30px; border-radius: 10px; font-size: 18px; ">
                     <img src="/img/mais.png" alt=""> New Chat </button>
                 
-                    <button *ngFor="let chat of chats"  class="bnts" style="display: flex; gap: 10px; cursor: pointer; margin-top: 10px;"> 
-                    <i class="fa-regular fa-message"></i> {{ chat.userId }} - {{ chat.id }}  </button>
+                   @for (chat of chats; track $index ){ 
+                    <button (click)="onChatClick(chat)" class="bnts" style="display: flex; gap: 10px; cursor: pointer; margin-top: 10px;"> 
+                    <i class="fa-regular fa-message"></i> {{ chat.chatTitle }}   </button> }
                 
             </div>
         </div>
